@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>speechClick</title>
+	<style>
+		body { font-family: "Segoe UI", Tahoma, sans-serif; max-width: 46em; margin: 1.5em auto; line-height: 1.5; }
+		h1 { font-size: 1.8em; }
+		table { border-collapse: collapse; margin: 1em 0; }
+		th, td { border: 1px solid #999; padding: 0.35em 0.6em; text-align: left; }
+		th { background: #eee; }
+	</style>
+</head>
+<body>
+	<h1>speechClick</h1>
+
+	<p>speechClick is a small NVDA add-on that keeps fast scrolling from turning speech into noise.</p>
+
+	<p>When NVDA is asked to speak a string that is very similar to the one it spoke a moment ago, speechClick plays a short click instead of the speech. Text that differs meaningfully is always spoken in full, however quickly it follows.</p>
+
+	<h2>Requirements</h2>
+	<p>NVDA 2023.1 or later. Tested with NVDA 2023.3 and 2026.3.</p>
+
+	<h2>Usage</h2>
+	<p>The add-on needs no configuration. It starts working as soon as it is installed.</p>
+
+	<table>
+		<tr><th>Command</th><th>Description</th></tr>
+		<tr><td>NVDA+control+shift+s</td><td>Toggles speechClick on and off</td></tr>
+	</table>
+
+	<p>The command can be changed in NVDA's Input Gestures dialog, under the "Speech Click" category.</p>
+
+	<h2>Settings</h2>
+	<p>Open NVDA menu, Preferences, Settings, Speech Click.</p>
+
+	<table>
+		<tr><th>Setting</th><th>Default</th><th>Range</th></tr>
+		<tr><td>Enable speech click filter</td><td>on</td><td>on or off</td></tr>
+		<tr><td>Minimum time between repeated speech (ms)</td><td>50</td><td>1 to 5000</td></tr>
+		<tr><td>Speech resume delay after scrolling stops (ms)</td><td>1000</td><td>0 to 30000</td></tr>
+	</table>
+
+	<p>A click replaces speech only when three things are true: the new utterance is at least 85 percent similar to the previous one, it arrives sooner than the minimum time, and it arrives sooner than the resume delay. In practice the smaller of those two values is the limit.</p>
+
+	<ul>
+		<li><strong>Minimum time between repeated speech</strong> — how close together two similar utterances must be before the second one becomes a click. Raise it to click more often, lower it to hear more of what is scrolling past.</li>
+		<li><strong>Speech resume delay</strong> — an upper bound on how long after the previous utterance a click may still be used, so that the click does not linger after you stop scrolling.</li>
+	</ul>
+
+	<p>The similarity threshold is fixed at 85 percent and is not exposed in the settings.</p>
+
+	<h2>How it works</h2>
+	<p>speechClick wraps NVDA's speech function. For each utterance it joins the text, compares it with the previous utterance using Python's difflib sequence matching, and checks the elapsed time. If the conditions hold it plays click.wav and returns without speaking; otherwise it calls the original function untouched.</p>
+
+	<h2>License</h2>
+	<p>speechClick is released under the GNU General Public License version 2.</p>
+
+	<h2>Author</h2>
+	<p>Evangelosz Nagy, vangi.nagy@gmail.com</p>
+</body>
+</html>

@@ -1,0 +1,11 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Build output
+dist/
+*.nvda-addon
+
+# Local virtual environments and tooling
+.venv/
+.idea/

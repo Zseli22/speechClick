@@ -1,0 +1,4 @@
+* text=auto
+
+*.wav binary
+*.nvda-addon binary
